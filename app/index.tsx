@@ -1,4 +1,9 @@
-import { Button, MovieExpoLogo, TextInput } from "@/components/atoms";
+import {
+  Button,
+  IconButton,
+  MovieExpoLogo,
+  TextInput,
+} from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -21,6 +26,11 @@ const Login = () => {
           onPress={() => console.log("Create an account")}
         />
       </StyledView>
+
+      <IconButton
+        icon="arrow-left-line"
+        onPress={() => console.log("Icon Button")}
+      />
     </SafeAreaView>
   );
 };
