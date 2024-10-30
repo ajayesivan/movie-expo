@@ -1,4 +1,4 @@
-import { Text } from "@/components/styled";
+import { StyledText } from "@/components/styled";
 import { View } from "react-native";
 
 export default function Index() {
@@ -10,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text fontSize={24}>Movie EXPO 1</Text>
+      <StyledText fontSize={24}>Movie EXPO 1</StyledText>
     </View>
   );
 }
