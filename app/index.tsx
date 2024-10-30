@@ -1,4 +1,4 @@
-import { Button } from "@/components/atoms";
+import { Button, TextInput } from "@/components/atoms";
 import { StyledText } from "@/components/styled";
 import { View } from "react-native";
 
@@ -24,6 +24,8 @@ export default function Index() {
         label="Create an account"
         type="link"
       />
+
+      <TextInput placeholder="Hello" />
     </View>
   );
 }

@@ -13,7 +13,7 @@ import {
 } from "styled-system";
 
 const StyledTouchableOpacity = styled.TouchableOpacity.attrs((props) => ({
-  activeOpacity: (props.theme as any).activeOpacity,
+  activeOpacity: props.theme.activeOpacity,
 }))<ColorProps & SpaceProps & FlexboxProps & LayoutProps & BorderProps>`
   ${color}
   ${space}

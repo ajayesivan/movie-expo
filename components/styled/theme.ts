@@ -6,6 +6,8 @@ const theme: DefaultTheme = {
     textSecondary: "#FFFFFFCC",
     primary: "#010F1D",
     bg: "#566F81",
+    placeholder: "#FFFFFFB3",
+    bgHighlight: "#FFFFFF1A",
   },
   fontSizes: {
     xs: "12px",
