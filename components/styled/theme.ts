@@ -7,7 +7,13 @@ const theme: DefaultTheme = {
     primary: "#010F1D",
     bg: "#566F81",
   },
-  fontSizes: [12, 14, 18, 22, 24],
+  fontSizes: {
+    xs: "12px",
+    s: "14px",
+    m: "18px",
+    l: "22px",
+    xl: "24px",
+  },
   fonts: {
     regular: "OpenSans-Regular",
     bold: "OpenSans-Bold",

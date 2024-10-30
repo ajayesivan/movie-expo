@@ -9,7 +9,13 @@ declare module "styled-components/native" {
       bg: string;
       primary: string;
     };
-    fontSizes: number[];
+    fontSizes: {
+      xs: string;
+      s: string;
+      m: string;
+      l: string;
+      xl: string;
+    };
     fonts: {
       regular: string;
       bold: string;

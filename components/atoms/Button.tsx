@@ -4,19 +4,24 @@ import React from "react";
 interface ButtonProps {
   label: string;
   onPress: () => void;
+  type?: "primary" | "link";
 }
 
-const Button = ({ label, onPress }: ButtonProps) => {
+const Button = ({ label, onPress, type = "primary" }: ButtonProps) => {
+  const isPrimary = type === "primary";
+
   return (
     <StyledTouchableOpacity
-      backgroundColor="primary"
+      backgroundColor={isPrimary ? "primary" : null}
       minHeight="40px"
       justifyContent="center"
       px="24px"
       borderRadius="l"
       onPress={onPress}
     >
-      <StyledText fontFamily="bold">{label}</StyledText>
+      <StyledText fontFamily="bold" color={isPrimary ? "text" : "primary"}>
+        {label}
+      </StyledText>
     </StyledTouchableOpacity>
   );
 };

@@ -16,6 +16,7 @@ const StyledText = styled.Text<
   ${({ theme }) => `
     color:  ${theme.colors.textPrimary};
     font-family: ${theme.fonts.regular};
+    font-size: ${theme.fontSizes.xs}
   `}
   ${color}
   ${typography}
