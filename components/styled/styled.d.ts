@@ -1,11 +1,15 @@
-import 'styled-components/native';
+import 'styled-components';
+import { Theme } from 'styled-system';
 
 declare module 'styled-components/native' {
-  export interface DefaultTheme {
+  export interface DefaultTheme extends Theme {
     colors: {
-      text: string,
-      bg: string
+      textPrimary: string,
+      textSecondary: string,
+      bg: string,
+      primary: string,
     }
+    fontSizes: number[],
     fonts: {
       regular: string
       bold: string

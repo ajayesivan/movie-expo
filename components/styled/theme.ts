@@ -1,8 +1,11 @@
 import { Theme } from "styled-system";
+import { DefaultTheme } from "styled-components";
 
-const theme:Theme = {
+const theme: DefaultTheme = {
   colors: {
-    text: "#FFFFFF",
+    textPrimary: "#FFFFFF",
+    textSecondary: "#FFFFFFCC",
+    primary: "#010F1D",
     bg: "#566F81"
   },
   fontSizes: [12, 14, 18, 22, 24],

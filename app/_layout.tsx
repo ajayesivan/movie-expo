@@ -23,7 +23,7 @@ export default function RootLayout() {
     <ThemeProvider theme={theme}>
       <Stack
         screenOptions={{
-          contentStyle: { backgroundColor: theme?.colors?.bg },
+          contentStyle: { backgroundColor: theme.colors.bg },
           headerShown: false,
         }}
       >
