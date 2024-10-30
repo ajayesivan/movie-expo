@@ -13,13 +13,17 @@ const Button = ({ label, onPress, type = "primary" }: ButtonProps) => {
   return (
     <StyledTouchableOpacity
       backgroundColor={isPrimary ? "primary" : null}
-      minHeight="40px"
+      minHeight="44px"
       justifyContent="center"
       px="24px"
       borderRadius="l"
       onPress={onPress}
+      alignItems="center"
     >
-      <StyledText fontFamily="bold" color={isPrimary ? "text" : "primary"}>
+      <StyledText
+        fontFamily="bold"
+        color={isPrimary ? "textPrimary" : "primary"}
+      >
         {label}
       </StyledText>
     </StyledTouchableOpacity>

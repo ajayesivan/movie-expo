@@ -1,31 +1,28 @@
-import { Button, TextInput } from "@/components/atoms";
-import { StyledText } from "@/components/styled";
-import { View } from "react-native";
+import { Button, MovieExpoLogo, TextInput } from "@/components/atoms";
+import { StyledText, StyledView } from "@/components/styled";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
+const Login = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <StyledText fontSize={24} fontFamily={"boldItalic"}>
-        Heading 1
-      </StyledText>
-      <StyledText fontSize={22} fontFamily={"bold"}>
-        Heading 2
-      </StyledText>
-
-      <Button onPress={() => console.log("Login")} label="Login" />
-      <Button
-        onPress={() => console.log("Create account")}
-        label="Create an account"
-        type="link"
-      />
-
-      <TextInput placeholder="Hello" />
-    </View>
+    <SafeAreaView>
+      <StyledView gap="28px" px="20px" pt="100px">
+        <StyledView alignItems="center" gap="8px">
+          <MovieExpoLogo />
+          <StyledText fontFamily="italic">Movies Worth Remembering</StyledText>
+        </StyledView>
+        <StyledText fontSize="l" fontFamily="bold">
+          Login
+        </StyledText>
+        <TextInput placeholder="Email" />
+        <Button label="Continue" onPress={() => console.log("Continue")} />
+        <Button
+          type="link"
+          label="Create an account"
+          onPress={() => console.log("Create an account")}
+        />
+      </StyledView>
+    </SafeAreaView>
   );
-}
+};
+
+export default Login;
