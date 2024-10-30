@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
-import { color, ColorProps, typography, TypographyProps, space, SpaceProps, flex, FlexProps } from 'styled-system'
+import { color, ColorProps, typography, TypographyProps, space, SpaceProps, flexbox, FlexboxProps } from 'styled-system'
 
-const StyledText = styled.Text<ColorProps & TypographyProps & SpaceProps & FlexProps>`
+const StyledText = styled.Text<ColorProps & TypographyProps & SpaceProps & FlexboxProps>`
   ${({ theme }) => `
     color:  ${theme.colors.textPrimary};
     font-family: ${theme.fonts.regular};
@@ -9,7 +9,7 @@ const StyledText = styled.Text<ColorProps & TypographyProps & SpaceProps & FlexP
   ${color}
   ${typography}
   ${space}
-  ${flex}
+  ${flexbox}
 `
 
 export default StyledText;
