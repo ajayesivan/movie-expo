@@ -8,6 +8,8 @@ declare module "styled-components/native" {
       textSecondary: string;
       bg: string;
       primary: string;
+      placeholder: string;
+      bgHighlight: string;
     };
     fontSizes: {
       xs: string;
