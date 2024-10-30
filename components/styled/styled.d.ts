@@ -13,7 +13,8 @@ declare module 'styled-components/native' {
     fonts: {
       regular: string
       bold: string
-      italic: string
+      italic: string,
+      boldItalic: string,
     }
   }
 }

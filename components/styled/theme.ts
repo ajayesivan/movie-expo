@@ -1,4 +1,3 @@
-import { Theme } from "styled-system";
 import { DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
@@ -12,7 +11,8 @@ const theme: DefaultTheme = {
   fonts: {
     regular: 'OpenSans-Regular',
     bold: 'OpenSans-Bold',
-    italic: 'OpenSans-Italic'
+    italic: 'OpenSans-Italic',
+    boldItalic: 'OpenSans-BoldItalic'
   }
 };
 

@@ -11,6 +11,7 @@ export default function RootLayout() {
     "OpenSans-Regular": require("@/assets/fonts/OpenSans-Regular.ttf"),
     "OpenSans-Bold": require("@/assets/fonts/OpenSans-Bold.ttf"),
     "OpenSans-Italic": require("@/assets/fonts/OpenSans-Italic.ttf"),
+    "OpenSans-BoldItalic": require("@/assets/fonts/OpenSans-BoldItalic.ttf"),
   });
 
   useEffect(() => {
