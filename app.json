@@ -38,8 +38,12 @@
             "./assets/fonts/OpenSans-BoldItalic.ttf"
           ]
         }
-      ]
+      ],
+      "expo-localization"
     ],
+    "locals": {
+      "en": "./localization/en.json"
+    },
     "experiments": {
       "typedRoutes": true
     }
