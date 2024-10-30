@@ -1,3 +1,4 @@
+import { Button } from "@/components/atoms";
 import { StyledText } from "@/components/styled";
 import { View } from "react-native";
 
@@ -16,6 +17,8 @@ export default function Index() {
       <StyledText fontSize={22} fontFamily={"bold"}>
         Heading 2
       </StyledText>
+
+      <Button label="Login" />
     </View>
   );
 }

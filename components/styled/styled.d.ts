@@ -15,6 +15,14 @@ declare module 'styled-components/native' {
       bold: string
       italic: string,
       boldItalic: string,
+    },
+    activeOpacity: number,
+    radii: {
+      xxs: string,
+      xs: string,
+      s: string,
+      l: string,
+      xl: string
     }
   }
 }
