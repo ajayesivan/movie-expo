@@ -10,9 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text color="red" fontSize={24}>
-        Movie EXPO 1
-      </Text>
+      <Text fontSize={24}>Movie EXPO 1</Text>
     </View>
   );
 }

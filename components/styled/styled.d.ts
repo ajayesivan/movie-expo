@@ -2,6 +2,14 @@ import 'styled-components/native';
 
 declare module 'styled-components/native' {
   export interface DefaultTheme {
-    fonts: any
+    colors: {
+      text: string,
+      bg: string
+    }
+    fonts: {
+      regular: string
+      bold: string
+      italic: string
+    }
   }
 }

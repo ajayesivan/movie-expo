@@ -21,7 +21,12 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          contentStyle: { backgroundColor: theme?.colors?.bg },
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="index" />
       </Stack>
     </ThemeProvider>
