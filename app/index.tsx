@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { Text } from "@/components/styled";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -9,7 +10,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text color="red" fontSize={12}>
+        Movie EXPO
+      </Text>
     </View>
   );
 }
