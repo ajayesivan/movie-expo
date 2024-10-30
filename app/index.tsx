@@ -18,7 +18,12 @@ export default function Index() {
         Heading 2
       </StyledText>
 
-      <Button label="Login" />
+      <Button onPress={() => console.log("Login")} label="Login" />
+      <Button
+        onPress={() => console.log("Create account")}
+        label="Create an account"
+        type="link"
+      />
     </View>
   );
 }
