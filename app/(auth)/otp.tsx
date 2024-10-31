@@ -6,7 +6,7 @@ import {
 } from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import t from "@/localization";
-import { useSignUp } from "@clerk/clerk-expo";
+import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,11 +15,17 @@ const Otp = () => {
   const router = useRouter();
 
   const { name } = useLocalSearchParams<{ name: string }>();
+  const isLogin = !name;
 
   const { isLoaded, signUp, setActive } = useSignUp();
+  const {
+    isLoaded: isSignInLoaded,
+    signIn,
+    setActive: setSignInActive,
+  } = useSignIn();
   const [otp, setOtp] = useState("");
 
-  const onPressLogin = async () => {
+  const onPressSignUp = async () => {
     if (!isLoaded) {
       console.log("Not loaded");
       return; // TODO: Update the user about the issue
@@ -41,6 +47,29 @@ const Otp = () => {
     }
   };
 
+  const onPressLogin = async () => {
+    if (!isSignInLoaded) {
+      console.log("Not loaded");
+      return; // TODO: Update the user about the issue
+    }
+
+    try {
+      const completeSignIn = await signIn.attemptFirstFactor({
+        strategy: "email_code",
+        code: otp,
+      });
+
+      if (completeSignIn.status === "complete") {
+        await setSignInActive({ session: completeSignIn.createdSessionId });
+        router.replace("/");
+      } else {
+        console.error(JSON.stringify(completeSignIn, null, 2));
+      }
+    } catch (err) {
+      console.log("Error", JSON.stringify(err));
+    }
+  };
+
   const onPressBack = () => {
     router.back();
   };
@@ -55,15 +84,13 @@ const Otp = () => {
         <StyledView flexDirection="row" alignItems="center" gap="12px">
           <IconButton icon="arrow-left-line" onPress={onPressBack} />
           <StyledText fontSize="l" fontFamily="bold">
-            {t(name ? "sign-up" : "login")}
+            {t(isLogin ? "login" : "sign-up")}
           </StyledText>
         </StyledView>
         <TextInput value={otp} onChangeText={setOtp} placeholder={t("otp")} />
-        <Button label={t("login")} onPress={onPressLogin} />
         <Button
-          type="link"
-          label={t("create-an-account")}
-          onPress={() => console.log("Create an account")}
+          label={t(isLogin ? "login" : "sign-up")}
+          onPress={isLogin ? onPressLogin : onPressSignUp}
         />
       </StyledView>
     </SafeAreaView>
