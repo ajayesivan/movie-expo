@@ -6,6 +6,8 @@ import {
   SpaceProps,
   flexbox,
   FlexboxProps,
+  color,
+  ColorProps,
 } from "styled-system";
 
 interface CustomProps {
@@ -13,8 +15,9 @@ interface CustomProps {
 }
 
 const StyledView = styled.View<
-  SpaceProps & FlexboxProps & LayoutProps & CustomProps
+  SpaceProps & FlexboxProps & LayoutProps & CustomProps & ColorProps
 >`
+  ${color}
   ${layout}
   ${space}
   ${flexbox}

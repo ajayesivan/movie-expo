@@ -20,7 +20,7 @@ const Login = () => {
           {t("login")}
         </StyledText>
         <TextInput placeholder="Email" />
-        <Button label={t("login")} onPress={() => console.log("Continue")} />
+        <Button label={t("continue")} onPress={() => console.log("Continue")} />
         <Button
           type="link"
           label={t("create-an-account")}
