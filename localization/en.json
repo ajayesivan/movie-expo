@@ -4,5 +4,7 @@
   "email": "Email",
   "continue": "Continue",
   "create-an-account": "Create an account",
-  "otp": "OTP"
+  "otp": "OTP",
+  "already-have-an-account": "Already have an account",
+  "sign-up": "Sign up"
 }

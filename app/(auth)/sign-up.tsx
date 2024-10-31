@@ -11,8 +11,8 @@ const Login = () => {
     router.push("/(auth)/otp");
   };
 
-  const onPressCreateAnAccount = () => {
-    router.replace("/(auth)/sign-up");
+  const onPressAlreadyHaveAnAccount = () => {
+    router.replace("/(auth)/login");
   };
 
   return (
@@ -23,14 +23,14 @@ const Login = () => {
           <StyledText fontFamily="italic">{t("tagline")}</StyledText>
         </StyledView>
         <StyledText fontSize="l" fontFamily="bold">
-          {t("login")}
+          {t("sign-up")}
         </StyledText>
         <TextInput placeholder={t("email")} />
         <Button label={t("continue")} onPress={onPressContinue} />
         <Button
           type="link"
-          label={t("create-an-account")}
-          onPress={onPressCreateAnAccount}
+          label={t("already-have-an-account")}
+          onPress={onPressAlreadyHaveAnAccount}
         />
       </StyledView>
     </SafeAreaView>
