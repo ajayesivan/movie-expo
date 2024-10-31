@@ -6570,6 +6570,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-image@npm:~1.13.0":
+  version: 1.13.0
+  resolution: "expo-image@npm:1.13.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/cc892cb15ad23766d7f13b3cd4c564b6b57d358d7a46063daf38f3fc752c0af8307b27a8206a9d25ef7e858df1f9839efc690b136956a167fe2befbe60d18585
+  languageName: node
+  linkType: hard
+
 "expo-keep-awake@npm:~13.0.2":
   version: 13.0.2
   resolution: "expo-keep-awake@npm:13.0.2"
@@ -10014,6 +10023,7 @@ __metadata:
     expo-auth-session: "npm:^5.5.2"
     expo-constants: "npm:~16.0.2"
     expo-font: "npm:~12.0.9"
+    expo-image: "npm:~1.13.0"
     expo-linking: "npm:~6.3.1"
     expo-localization: "npm:~15.0.3"
     expo-router: "npm:~3.5.23"
