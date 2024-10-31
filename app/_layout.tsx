@@ -5,8 +5,11 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { tokenCache } from "@/auth";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 const RootLayout = () => {
   const [loaded, error] = useFonts({
@@ -31,9 +34,11 @@ const RootLayout = () => {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
       <ClerkLoaded>
-        <ThemeProvider theme={theme}>
-          <Slot />
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <Slot />
+          </ThemeProvider>
+        </QueryClientProvider>
       </ClerkLoaded>
     </ClerkProvider>
   );
