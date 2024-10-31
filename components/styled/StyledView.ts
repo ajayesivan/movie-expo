@@ -8,6 +8,8 @@ import {
   FlexboxProps,
   color,
   ColorProps,
+  border,
+  BorderProps,
 } from "styled-system";
 
 interface CustomProps {
@@ -15,12 +17,18 @@ interface CustomProps {
 }
 
 const StyledView = styled.View<
-  SpaceProps & FlexboxProps & LayoutProps & CustomProps & ColorProps
+  SpaceProps &
+    FlexboxProps &
+    LayoutProps &
+    CustomProps &
+    ColorProps &
+    BorderProps
 >`
   ${color}
   ${layout}
   ${space}
   ${flexbox}
+  ${border}
   gap: ${(props) => props.gap}
 `;
 

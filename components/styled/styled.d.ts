@@ -10,10 +10,12 @@ declare module "styled-components/native" {
       primary: string;
       placeholder: string;
       bgHighlight: string;
+      border: string;
     };
     fontSizes: {
       xs: string;
       s: string;
+      n: string;
       m: string;
       l: string;
       xl: string;
