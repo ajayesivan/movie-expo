@@ -6,14 +6,68 @@ import {
 } from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import t from "@/localization";
-import { useRouter } from "expo-router";
+import { useSignIn, useSignUp } from "@clerk/clerk-expo";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Otp = () => {
   const router = useRouter();
 
-  const onPressLogin = () => {
-    router.replace("/");
+  const { name } = useLocalSearchParams<{ name: string }>();
+  const isLogin = !name;
+
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const {
+    isLoaded: isSignInLoaded,
+    signIn,
+    setActive: setSignInActive,
+  } = useSignIn();
+  const [otp, setOtp] = useState("");
+
+  const onPressSignUp = async () => {
+    if (!isLoaded) {
+      console.log("Not loaded");
+      return; // TODO: Update the user about the issue
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code: otp,
+      });
+
+      if (completeSignUp.status === "complete") {
+        await setActive({ session: completeSignUp.createdSessionId });
+        router.replace("/");
+      } else {
+        console.error(JSON.stringify(completeSignUp, null, 2));
+      }
+    } catch (err) {
+      console.log("Error", JSON.stringify(err));
+    }
+  };
+
+  const onPressLogin = async () => {
+    if (!isSignInLoaded) {
+      console.log("Not loaded");
+      return; // TODO: Update the user about the issue
+    }
+
+    try {
+      const completeSignIn = await signIn.attemptFirstFactor({
+        strategy: "email_code",
+        code: otp,
+      });
+
+      if (completeSignIn.status === "complete") {
+        await setSignInActive({ session: completeSignIn.createdSessionId });
+        router.replace("/");
+      } else {
+        console.error(JSON.stringify(completeSignIn, null, 2));
+      }
+    } catch (err) {
+      console.log("Error", JSON.stringify(err));
+    }
   };
 
   const onPressBack = () => {
@@ -30,15 +84,13 @@ const Otp = () => {
         <StyledView flexDirection="row" alignItems="center" gap="12px">
           <IconButton icon="arrow-left-line" onPress={onPressBack} />
           <StyledText fontSize="l" fontFamily="bold">
-            {t("login")}
+            {t(isLogin ? "login" : "sign-up")}
           </StyledText>
         </StyledView>
-        <TextInput placeholder={t("otp")} />
-        <Button label={t("login")} onPress={onPressLogin} />
+        <TextInput value={otp} onChangeText={setOtp} placeholder={t("otp")} />
         <Button
-          type="link"
-          label={t("create-an-account")}
-          onPress={() => console.log("Create an account")}
+          label={t(isLogin ? "login" : "sign-up")}
+          onPress={isLogin ? onPressLogin : onPressSignUp}
         />
       </StyledView>
     </SafeAreaView>

@@ -1,52 +1,43 @@
 import { Button, MovieExpoLogo, TextInput } from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import t from "@/localization";
-import { useSignIn } from "@clerk/clerk-expo";
+import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { EmailCodeFactor, SignInFirstFactor } from "@clerk/types";
 
 const Login = () => {
   const router = useRouter();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const { isLoaded, signIn } = useSignIn();
+
+  const { isLoaded, signUp } = useSignUp();
 
   const onPressContinue = async () => {
-    console.log("Email", email);
-
     if (!isLoaded) {
-      return; // TODO: Handle this better.
+      console.log("Not loaded");
+      return; // TODO: Update the user about the issue
     }
 
     try {
-      const { supportedFirstFactors } = await signIn.create({
-        identifier: email,
+      await signUp.create({
+        emailAddress: email,
       });
 
-      const isEmailCodeFactor = (
-        factor: SignInFirstFactor
-      ): factor is EmailCodeFactor => {
-        return factor.strategy === "email_code";
-      };
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
-      const emailCodeFactor = supportedFirstFactors?.find(isEmailCodeFactor);
-
-      if (emailCodeFactor) {
-        await signIn.prepareFirstFactor({
-          strategy: "email_code",
-          emailAddressId: emailCodeFactor.emailAddressId,
-        });
-        router.push("/(auth)/otp");
-      }
-    } catch (err: any) {
+      router.push({
+        pathname: "/(auth)/otp",
+        params: { name: name },
+      });
+    } catch (err) {
       console.log("Error", JSON.stringify(err));
     }
   };
 
-  const onPressCreateAnAccount = () => {
-    router.replace("/(auth)/sign-up");
+  const onPressAlreadyHaveAnAccount = () => {
+    router.replace("/(auth)/login");
   };
 
   return (
@@ -57,8 +48,13 @@ const Login = () => {
           <StyledText fontFamily="italic">{t("tagline")}</StyledText>
         </StyledView>
         <StyledText fontSize="l" fontFamily="bold">
-          {t("login")}
+          {t("sign-up")}
         </StyledText>
+        <TextInput
+          value={name}
+          onChangeText={setName}
+          placeholder={t("name")}
+        />
         <TextInput
           value={email}
           onChangeText={setEmail}
@@ -67,8 +63,8 @@ const Login = () => {
         <Button label={t("continue")} onPress={onPressContinue} />
         <Button
           type="link"
-          label={t("create-an-account")}
-          onPress={onPressCreateAnAccount}
+          label={t("already-have-an-account")}
+          onPress={onPressAlreadyHaveAnAccount}
         />
       </StyledView>
     </SafeAreaView>

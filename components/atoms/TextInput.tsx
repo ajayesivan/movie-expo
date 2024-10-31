@@ -2,10 +2,11 @@ import { StyledTextInput } from "@/components/styled";
 
 interface TextInputProps {
   placeholder?: string;
-  onChangeText?: () => void;
+  value?: string;
+  onChangeText?: (value: string) => void;
 }
 
-const TextInput = ({ placeholder, onChangeText }: TextInputProps) => {
+const TextInput = ({ placeholder, onChangeText, value }: TextInputProps) => {
   return (
     <StyledTextInput
       placeholder={placeholder}
@@ -15,6 +16,7 @@ const TextInput = ({ placeholder, onChangeText }: TextInputProps) => {
       borderWidth="1px"
       borderColor="placeholder"
       borderRadius="l"
+      value={value}
       onChangeText={onChangeText}
     />
   );

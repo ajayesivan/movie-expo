@@ -1,16 +1,13 @@
-import AuthContext from "@/context/AuthContext";
-import { Redirect, Slot, Stack } from "expo-router";
-import { useContext } from "react";
+import { useAuth } from "@clerk/clerk-expo";
+import { Redirect, Stack } from "expo-router";
 import { useTheme } from "styled-components/native";
 
 const RootLayout = () => {
   const theme = useTheme();
 
-  const isAuthenticated = useContext(AuthContext);
+  const { isSignedIn } = useAuth();
 
-  console.log(isAuthenticated);
-
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return <Redirect href="/login" />;
   }
 
