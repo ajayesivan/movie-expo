@@ -3,8 +3,8 @@ import { Slot, SplashScreen } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
-import AuthContext from "@/context/AuthContext";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
+import { tokenCache } from "@/auth";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,12 +29,10 @@ const RootLayout = () => {
   }, [loaded, error]);
 
   return (
-    <ClerkProvider publishableKey={clerkPublishableKey}>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
       <ClerkLoaded>
         <ThemeProvider theme={theme}>
-          <AuthContext.Provider value={false}>
-            <Slot />
-          </AuthContext.Provider>
+          <Slot />
         </ThemeProvider>
       </ClerkLoaded>
     </ClerkProvider>
