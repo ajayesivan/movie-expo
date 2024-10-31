@@ -8,14 +8,24 @@ const RootLayout = () => {
   const { isSignedIn } = useAuth();
 
   if (!isSignedIn) {
-    return <Redirect href="/login" />;
+    return <Redirect href="/(auth)/login" />;
   }
 
   return (
     <Stack
       screenOptions={{
-        contentStyle: { backgroundColor: theme.colors.bg },
-        headerShown: false,
+        contentStyle: {
+          backgroundColor: theme.colors.bg,
+        },
+        headerStyle: {
+          backgroundColor: theme.colors.bg,
+        },
+        headerTitleStyle: {
+          color: theme.colors.textPrimary,
+          fontFamily: theme.fonts.boldItalic,
+          fontSize: 24,
+        },
+        headerTitleAlign: "left",
       }}
     />
   );
