@@ -55,7 +55,7 @@ const Otp = () => {
         <StyledView flexDirection="row" alignItems="center" gap="12px">
           <IconButton icon="arrow-left-line" onPress={onPressBack} />
           <StyledText fontSize="l" fontFamily="bold">
-            {t("login")}
+            {t(name ? "sign-up" : "login")}
           </StyledText>
         </StyledView>
         <TextInput value={otp} onChangeText={setOtp} placeholder={t("otp")} />
