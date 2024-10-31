@@ -1,14 +1,23 @@
-import { Button, MovieExpoLogo, TextInput } from "@/components/atoms";
+import {
+  Button,
+  IconButton,
+  MovieExpoLogo,
+  TextInput,
+} from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import t from "@/localization";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Login = () => {
+const Otp = () => {
   const router = useRouter();
 
-  const onPressContinue = () => {
-    router.push("/(auth)/otp");
+  const onPressLogin = () => {
+    router.replace("/");
+  };
+
+  const onPressBack = () => {
+    router.back();
   };
 
   return (
@@ -18,11 +27,14 @@ const Login = () => {
           <MovieExpoLogo />
           <StyledText fontFamily="italic">{t("tagline")}</StyledText>
         </StyledView>
-        <StyledText fontSize="l" fontFamily="bold">
-          {t("login")}
-        </StyledText>
-        <TextInput placeholder={t("email")} />
-        <Button label={t("continue")} onPress={onPressContinue} />
+        <StyledView flexDirection="row" alignItems="center" gap="12px">
+          <IconButton icon="arrow-left-line" onPress={onPressBack} />
+          <StyledText fontSize="l" fontFamily="bold">
+            {t("login")}
+          </StyledText>
+        </StyledView>
+        <TextInput placeholder={t("otp")} />
+        <Button label={t("login")} onPress={onPressLogin} />
         <Button
           type="link"
           label={t("create-an-account")}
@@ -33,4 +45,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Otp;
