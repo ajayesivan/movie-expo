@@ -1,5 +1,4 @@
 import { StyledImage } from "@/components/styled";
-import { Image } from "expo-image";
 import { ImageSourcePropType } from "react-native";
 
 interface MoviePosterProps {
