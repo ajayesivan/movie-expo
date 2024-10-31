@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components/native";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import AuthContext from "@/context/AuthContext";
+import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +16,12 @@ const RootLayout = () => {
     "OpenSans-BoldItalic": require("@/assets/fonts/OpenSans-BoldItalic.ttf"),
   });
 
+  const clerkPublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  if (!clerkPublishableKey) {
+    throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file");
+  }
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -22,11 +29,15 @@ const RootLayout = () => {
   }, [loaded, error]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <AuthContext.Provider value={false}>
-        <Slot />
-      </AuthContext.Provider>
-    </ThemeProvider>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      <ClerkLoaded>
+        <ThemeProvider theme={theme}>
+          <AuthContext.Provider value={false}>
+            <Slot />
+          </AuthContext.Provider>
+        </ThemeProvider>
+      </ClerkLoaded>
+    </ClerkProvider>
   );
 };
 
