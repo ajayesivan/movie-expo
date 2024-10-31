@@ -3,15 +3,17 @@ import { DefaultTheme } from "styled-components";
 const theme: DefaultTheme = {
   colors: {
     textPrimary: "#FFFFFF",
-    textSecondary: "#FFFFFFCC",
+    textSecondary: "#FFFFFFCC", // White 80%
     primary: "#010F1D",
     bg: "#566F81",
-    placeholder: "#FFFFFFB3",
-    bgHighlight: "#FFFFFF1A",
+    placeholder: "#FFFFFFB3", // White 70%
+    bgHighlight: "#FFFFFF1A", // White 10%
+    border: "#FFFFFF66", // White 40%
   },
   fontSizes: {
     xs: "12px",
     s: "14px",
+    n: "16px",
     m: "18px",
     l: "22px",
     xl: "24px",
