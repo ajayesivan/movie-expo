@@ -17,7 +17,6 @@ const Home = () => {
   };
 
   return (
-    // <SafeAreaView>
     <StyledView p="20px">
       <Stack.Screen
         options={{
@@ -52,7 +51,6 @@ const Home = () => {
         onPress={() => {}}
       />
     </StyledView>
-    // </SafeAreaView>
   );
 };
 
