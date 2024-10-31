@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Login = () => {
   const router = useRouter();
 
-  const onPressContinue = () => {
+  const onPressContinue = async () => {
     router.push("/(auth)/otp");
   };
 

@@ -1,11 +1,13 @@
+import { useAuth } from "@clerk/clerk-expo";
 import { Redirect, Stack } from "expo-router";
-import { useContext } from "react";
 import { useTheme } from "styled-components/native";
 
 const RootLayout = () => {
   const theme = useTheme();
 
-  if (true) {
+  const { isSignedIn } = useAuth();
+
+  if (!isSignedIn) {
     return <Redirect href="/login" />;
   }
 

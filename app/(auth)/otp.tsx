@@ -6,14 +6,39 @@ import {
 } from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
 import t from "@/localization";
-import { useRouter } from "expo-router";
+import { useSignUp } from "@clerk/clerk-expo";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Otp = () => {
   const router = useRouter();
 
-  const onPressLogin = () => {
-    router.replace("/");
+  const { name } = useLocalSearchParams<{ name: string }>();
+
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [otp, setOtp] = useState("");
+
+  const onPressLogin = async () => {
+    if (!isLoaded) {
+      console.log("Not loaded");
+      return; // TODO: Update the user about the issue
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code: otp,
+      });
+
+      if (completeSignUp.status === "complete") {
+        await setActive({ session: completeSignUp.createdSessionId });
+        router.replace("/");
+      } else {
+        console.error(JSON.stringify(completeSignUp, null, 2));
+      }
+    } catch (err) {
+      console.log("Error", JSON.stringify(err));
+    }
   };
 
   const onPressBack = () => {
@@ -33,7 +58,7 @@ const Otp = () => {
             {t("login")}
           </StyledText>
         </StyledView>
-        <TextInput placeholder={t("otp")} />
+        <TextInput value={otp} onChangeText={setOtp} placeholder={t("otp")} />
         <Button label={t("login")} onPress={onPressLogin} />
         <Button
           type="link"

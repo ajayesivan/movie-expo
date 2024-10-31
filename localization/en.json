@@ -6,5 +6,6 @@
   "create-an-account": "Create an account",
   "otp": "OTP",
   "already-have-an-account": "Already have an account",
-  "sign-up": "Sign up"
+  "sign-up": "Sign up",
+  "name": "Name"
 }
