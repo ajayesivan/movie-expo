@@ -1,8 +1,8 @@
+import { axiosTmdb } from "@/api/axios";
 import { Button, IconButton, MoviePoster } from "@/components/atoms";
 import { MovieCard } from "@/components/molecules";
-import { StyledText, StyledView } from "@/components/styled";
+import { StyledView } from "@/components/styled";
 import { useClerk } from "@clerk/clerk-expo";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack } from "expo-router";
 
 const Home = () => {
@@ -14,6 +14,18 @@ const Home = () => {
 
   const openFavorites = () => {
     router.push("/favorites");
+  };
+
+  const fetchMovies = async () => {
+    try {
+      const res = await axiosTmdb.get(`/movie/popular`, {
+        params: { language: "en-US", page: "1" },
+      });
+
+      console.log("Result:", res);
+    } catch (error: any) {
+      console.log(JSON.stringify(error));
+    }
   };
 
   return (
@@ -32,6 +44,8 @@ const Home = () => {
       />
 
       <Button onPress={logout} label="Logout" />
+
+      <Button onPress={fetchMovies} label="Fetch Movies" />
 
       <MoviePoster
         size="large"

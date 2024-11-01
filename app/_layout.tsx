@@ -19,10 +19,12 @@ const RootLayout = () => {
     "OpenSans-BoldItalic": require("@/assets/fonts/OpenSans-BoldItalic.ttf"),
   });
 
-  const clerkPublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  if (!clerkPublishableKey) {
-    throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file");
+  if (!CLERK_PUBLISHABLE_KEY) {
+    throw new Error(
+      "Add Clerk Publishable Key as EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your .env file"
+    );
   }
 
   useEffect(() => {
@@ -32,7 +34,10 @@ const RootLayout = () => {
   }, [loaded, error]);
 
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
+    <ClerkProvider
+      tokenCache={tokenCache}
+      publishableKey={CLERK_PUBLISHABLE_KEY}
+    >
       <ClerkLoaded>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
