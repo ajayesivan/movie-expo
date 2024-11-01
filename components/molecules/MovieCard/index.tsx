@@ -12,10 +12,9 @@ interface MovieCardProps {
   onFavoritePress: () => void;
   imageUri: string;
   title: string;
-  genre: string;
   rating: number | string;
   year: string;
-  summary: string;
+  overview: string;
   isFavorite?: boolean;
 }
 
@@ -24,10 +23,9 @@ const MovieCard = ({
   onFavoritePress,
   imageUri,
   title,
-  genre,
   rating,
   year,
-  summary,
+  overview,
   isFavorite,
 }: MovieCardProps) => {
   return (
@@ -46,9 +44,8 @@ const MovieCard = ({
             uri: imageUri,
           }}
         />
-
         <StyledView flex="1" ml="12px">
-          <StyledText fontFamily="bold" fontSize="n">
+          <StyledText fontFamily="bold" fontSize="n" numberOfLines={1}>
             {title}
           </StyledText>
           <StyledView
@@ -57,15 +54,13 @@ const MovieCard = ({
             mb="6px"
             alignItems="baseline"
           >
-            <StyledText color="textSecondary">{genre}</StyledText>
-            <InlineDivider />
             <StyledText color="textSecondary">{year}</StyledText>
             <InlineDivider />
             <StyledText color="textSecondary">
               {t("imdb")} {rating}
             </StyledText>
           </StyledView>
-          <StyledText numberOfLines={3}>{summary}</StyledText>
+          <StyledText numberOfLines={3}>{overview}</StyledText>
         </StyledView>
         <IconButton
           onPress={onFavoritePress}

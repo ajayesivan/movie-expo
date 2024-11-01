@@ -4,11 +4,20 @@ Movies Worth Remembering!
 
 Design: https://www.figma.com/design/Acp1oLru2s4kgq0zcZsqLN/Movie-Expo?node-id=1-24&t=I105LhXw9GhR8tjQ-1
 
-## Welcome to your Expo app 👋
+## Development
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Configure API Keys
 
-#### Get started
+This project uses the [Clerk](https://clerk.dev) and [TMDB](https://www.themoviedb.org) APIs for authentication and movie data respectively. To run the project locally, you'll need to create an account with both services and obtain the necessary API keys.
+
+Create a `.env` file in the root of the project and add the following keys:
+
+```
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=<key>
+EXPO_PUBLIC_TMDB_API_KEY=<key>
+```
+
+### Running the Project
 
 1. Install dependencies
 

@@ -1,12 +1,15 @@
+import { useMovies } from "@/api/hooks/tmdb";
 import { Button, IconButton, MoviePoster } from "@/components/atoms";
 import { MovieCard } from "@/components/molecules";
-import { StyledText, StyledView } from "@/components/styled";
+import { StyledView } from "@/components/styled";
 import { useClerk } from "@clerk/clerk-expo";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Stack } from "expo-router";
+import { FlashList } from "@shopify/flash-list";
 
 const Home = () => {
   const { signOut } = useClerk();
+
+  const { movies } = useMovies();
 
   const logout = () => {
     signOut();
@@ -17,7 +20,7 @@ const Home = () => {
   };
 
   return (
-    <StyledView p="20px">
+    <StyledView p="20px" flex={1}>
       <Stack.Screen
         options={{
           title: "Hey, Ajay!",
@@ -31,24 +34,30 @@ const Home = () => {
         }}
       />
 
-      <Button onPress={logout} label="Logout" />
+      {/* <Button onPress={logout} label="Logout" /> */}
 
-      <MoviePoster
+      {/* <MoviePoster
         size="large"
         source={{
           uri: "https://images.unsplash.com/photo-1724962508958-7a164cf8492f?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         }}
-      />
+      /> */}
 
-      <MovieCard
-        imageUri="https://images.unsplash.com/photo-1724962508958-7a164cf8492f?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        title="Nature"
-        genre="Thriller"
-        year="2024"
-        rating="8.8"
-        onFavoritePress={() => {}}
-        summary="While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him."
-        onPress={() => {}}
+      <FlashList
+        data={movies}
+        estimatedItemSize={114}
+        ItemSeparatorComponent={() => <StyledView height="12px" />}
+        renderItem={({ item }) => (
+          <MovieCard
+            imageUri={item.posterThumbnailUrl}
+            title={item.title}
+            year={item.releaseYear}
+            rating={item.rating}
+            onFavoritePress={() => {}}
+            overview={item.overview}
+            onPress={() => {}}
+          />
+        )}
       />
     </StyledView>
   );
