@@ -46,6 +46,7 @@ const Home = () => {
       <FlashList
         data={movies}
         estimatedItemSize={114}
+        ItemSeparatorComponent={() => <StyledView height="12px" />}
         renderItem={({ item }) => (
           <MovieCard
             imageUri={item.posterThumbnailUrl}
