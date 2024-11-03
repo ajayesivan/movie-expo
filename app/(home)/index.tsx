@@ -9,7 +9,7 @@ import { FlashList } from "@shopify/flash-list";
 const Home = () => {
   const { signOut } = useClerk();
 
-  const { movies } = useMovies();
+  const { movies, loadMore } = useMovies();
 
   const logout = () => {
     signOut();
@@ -47,6 +47,7 @@ const Home = () => {
         data={movies}
         estimatedItemSize={114}
         ItemSeparatorComponent={() => <StyledView height="12px" />}
+        onEndReached={loadMore}
         renderItem={({ item }) => (
           <MovieCard
             imageUri={item.posterThumbnailUrl}
