@@ -2,7 +2,6 @@ import { useMovies } from "@/api/hooks/tmdb";
 import { IconButton, ItemSeparator } from "@/components/atoms";
 import { MovieCard } from "@/components/molecules";
 import { StyledView } from "@/components/styled";
-import { useClerk } from "@clerk/clerk-expo";
 import { router, Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import t from "@/localization";
@@ -12,7 +11,6 @@ import useMovieStore from "@/store";
 import Toast from "react-native-root-toast";
 
 const Home = () => {
-  const { signOut } = useClerk();
   const { movies, loadMore, error, isLoading } = useMovies();
   const { favoriteMovies, toggleFavoriteMovie, updateSelectedMovie } =
     useMovieStore((state) => state);
@@ -21,12 +19,6 @@ const Home = () => {
     () => favoriteMovies.map((favMovie) => favMovie.id),
     [favoriteMovies]
   );
-
-  const logout = () => {
-    signOut();
-  };
-
-  // logout();
 
   const onPressFavorites = () => {
     router.push("/(home)/favorites");
@@ -68,7 +60,7 @@ const Home = () => {
   }
 
   return (
-    <StyledView p="20px" flex={1}>
+    <StyledView flex={1}>
       <Stack.Screen
         options={{
           title: t("movie-expo"),
@@ -84,6 +76,7 @@ const Home = () => {
 
       <FlashList
         data={movies}
+        contentContainerStyle={{ padding: 20 }}
         estimatedItemSize={114}
         ItemSeparatorComponent={ItemSeparator}
         onEndReached={loadMore}
