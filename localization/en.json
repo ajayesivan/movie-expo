@@ -12,5 +12,8 @@
   "movie-expo": "Movie Expo",
   "favorites": "Favorites",
   "favorite": "Favorite",
+  "enter-email": "Enter your email address",
+  "enter-name-email": "Enter your name & email address",
+  "something-went-wrong": "Something went wrong, please try again",
   "unfavorite": "Unfavorite"
 }

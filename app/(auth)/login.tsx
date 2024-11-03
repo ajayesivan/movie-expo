@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EmailCodeFactor, SignInFirstFactor } from "@clerk/types";
+import Toast from "react-native-root-toast";
 
 const Login = () => {
   const router = useRouter();
@@ -14,10 +15,14 @@ const Login = () => {
   const { isLoaded, signIn } = useSignIn();
 
   const onPressContinue = async () => {
-    console.log("Email", email);
+    if (!email) {
+      Toast.show(t("enter-email"));
+      return;
+    }
 
     if (!isLoaded) {
-      return; // TODO: Handle this better.
+      Toast.show(t("something-went-wrong"));
+      return;
     }
 
     try {
@@ -41,7 +46,8 @@ const Login = () => {
         router.push("/(auth)/otp");
       }
     } catch (err: any) {
-      console.log("Error", JSON.stringify(err));
+      Toast.show(t("something-went-wrong"));
+      console.log("Error", JSON.stringify(err, null, 2));
     }
   };
 

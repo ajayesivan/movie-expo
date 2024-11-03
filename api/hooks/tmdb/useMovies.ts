@@ -30,11 +30,12 @@ const transformTmdbMovieData = (
 interface UseMovies {
   movies: Movie[];
   loadMore: () => void;
+  error: Error | null;
+  isLoading: boolean;
 }
 
-// TODO: https://github.com/ajayesivan/movie-expo/issues/36
 const useMovies = (): UseMovies => {
-  const { data, hasNextPage, fetchNextPage } =
+  const { data, hasNextPage, fetchNextPage, error, isLoading } =
     useInfiniteQuery<TmdbMoviesListPopularResponse>({
       initialPageParam: 1,
       queryKey: ["tmdb", "movieLists", "popular"],
@@ -65,7 +66,7 @@ const useMovies = (): UseMovies => {
     }
   }, [fetchNextPage, hasNextPage]);
 
-  return { movies, loadMore };
+  return { movies, loadMore, error, isLoading };
 };
 
 export default useMovies;

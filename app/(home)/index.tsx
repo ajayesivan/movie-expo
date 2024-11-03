@@ -9,10 +9,11 @@ import t from "@/localization";
 import { useCallback, useMemo } from "react";
 import { Movie } from "@/types/movie";
 import useMovieStore from "@/store";
+import Toast from "react-native-root-toast";
 
 const Home = () => {
   const { signOut } = useClerk();
-  const { movies, loadMore } = useMovies();
+  const { movies, loadMore, error, isLoading } = useMovies();
   const { favoriteMovies, toggleFavoriteMovie, updateSelectedMovie } =
     useMovieStore((state) => state);
 
@@ -24,6 +25,8 @@ const Home = () => {
   const logout = () => {
     signOut();
   };
+
+  // logout();
 
   const onPressFavorites = () => {
     router.push("/(home)/favorites");
@@ -59,6 +62,10 @@ const Home = () => {
     ),
     [onPressMovie, onToggleFavorite, favoriteMoviesId]
   );
+
+  if (error) {
+    Toast.show(t("something-went-wrong"));
+  }
 
   return (
     <StyledView p="20px" flex={1}>
