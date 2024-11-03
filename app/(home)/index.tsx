@@ -1,16 +1,25 @@
 import { useMovies } from "@/api/hooks/tmdb";
-import { Button, IconButton, MoviePoster } from "@/components/atoms";
+import { IconButton, ItemSeparator } from "@/components/atoms";
 import { MovieCard } from "@/components/molecules";
 import { StyledView } from "@/components/styled";
 import { useClerk } from "@clerk/clerk-expo";
 import { router, Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import t from "@/localization";
+import { useCallback, useMemo } from "react";
+import { Movie } from "@/types/movie";
+import useMovieStore from "@/store";
 
 const Home = () => {
   const { signOut } = useClerk();
-
   const { movies, loadMore } = useMovies();
+  const { favoriteMovies, toggleFavoriteMovie, updateSelectedMovie } =
+    useMovieStore((state) => state);
+
+  const favoriteMoviesId = useMemo(
+    () => favoriteMovies.map((favMovie) => favMovie.id),
+    [favoriteMovies]
+  );
 
   const logout = () => {
     signOut();
@@ -20,9 +29,36 @@ const Home = () => {
     router.push("/(home)/favorites");
   };
 
-  const onPressMovie = (movieId: string | number) => {
-    router.push({ pathname: "/(home)/movie", params: { movieId: movieId } });
-  };
+  const onPressMovie = useCallback(
+    (movie: Movie) => {
+      updateSelectedMovie(movie);
+      router.push("/(home)/movie");
+    },
+    [updateSelectedMovie]
+  );
+
+  const onToggleFavorite = useCallback(
+    (movie: Movie) => {
+      toggleFavoriteMovie(movie);
+    },
+    [toggleFavoriteMovie]
+  );
+
+  const renderItem = useCallback(
+    ({ item }: { item: Movie }) => (
+      <MovieCard
+        imageUri={item.posterThumbnailUrl}
+        title={item.title}
+        year={item.releaseYear}
+        rating={item.rating}
+        onFavoritePress={() => onToggleFavorite(item)}
+        overview={item.overview}
+        isFavorite={favoriteMoviesId.includes(item.id)}
+        onPress={() => onPressMovie(item)}
+      />
+    ),
+    [onPressMovie, onToggleFavorite, favoriteMoviesId]
+  );
 
   return (
     <StyledView p="20px" flex={1}>
@@ -39,31 +75,13 @@ const Home = () => {
         }}
       />
 
-      {/* <Button onPress={logout} label="Logout" /> */}
-
-      {/* <MoviePoster
-        size="large"
-        source={{
-          uri: "https://images.unsplash.com/photo-1724962508958-7a164cf8492f?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        }}
-      /> */}
-
       <FlashList
         data={movies}
         estimatedItemSize={114}
-        ItemSeparatorComponent={() => <StyledView height="12px" />}
+        ItemSeparatorComponent={ItemSeparator}
         onEndReached={loadMore}
-        renderItem={({ item }) => (
-          <MovieCard
-            imageUri={item.posterThumbnailUrl}
-            title={item.title}
-            year={item.releaseYear}
-            rating={item.rating}
-            onFavoritePress={() => {}}
-            overview={item.overview}
-            onPress={() => onPressMovie(item.id)}
-          />
-        )}
+        renderItem={renderItem}
+        extraData={favoriteMoviesId}
       />
     </StyledView>
   );

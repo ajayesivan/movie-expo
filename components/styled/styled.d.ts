@@ -11,6 +11,7 @@ declare module "styled-components/native" {
       placeholder: string;
       bgHighlight: string;
       border: string;
+      favorite: string;
     };
     fontSizes: {
       xs: string;

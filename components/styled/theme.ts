@@ -9,6 +9,7 @@ const theme: DefaultTheme = {
     placeholder: "#FFFFFFB3", // White 70%
     bgHighlight: "#FFFFFF1A", // White 10%
     border: "#FFFFFF66", // White 40%
+    favorite: "#FF3232",
   },
   fontSizes: {
     xs: "12px",

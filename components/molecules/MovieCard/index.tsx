@@ -16,6 +16,7 @@ interface MovieCardProps {
   year: string;
   overview: string;
   isFavorite?: boolean;
+  shouldShowUnfavoriteIcon?: boolean;
 }
 
 const MovieCard = ({
@@ -27,6 +28,7 @@ const MovieCard = ({
   year,
   overview,
   isFavorite,
+  shouldShowUnfavoriteIcon,
 }: MovieCardProps) => {
   return (
     <StyledTouchableOpacity onPress={onPress}>
@@ -62,12 +64,21 @@ const MovieCard = ({
           </StyledView>
           <StyledText numberOfLines={3}>{overview}</StyledText>
         </StyledView>
-        <IconButton
-          onPress={onFavoritePress}
-          isNaked={true}
-          icon="ri-heart-3-fill"
-          iconColor={isFavorite ? "textPrimary" : "border"}
-        />
+        {shouldShowUnfavoriteIcon ? (
+          <IconButton
+            onPress={onFavoritePress}
+            isNaked={true}
+            icon="ri-dislike-fill"
+            iconColor="textPrimary"
+          />
+        ) : (
+          <IconButton
+            onPress={onFavoritePress}
+            isNaked={true}
+            icon="ri-heart-3-fill"
+            iconColor={isFavorite ? "favorite" : "border"}
+          />
+        )}
       </StyledView>
     </StyledTouchableOpacity>
   );

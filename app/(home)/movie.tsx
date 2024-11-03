@@ -1,10 +1,10 @@
 import { StyledText } from "@/components/styled";
-import { useLocalSearchParams } from "expo-router";
+import useMovieStore from "@/store";
 
 const Movie = () => {
-  const { movieId } = useLocalSearchParams<{ movieId: string }>();
+  const { selectedMovie: movie } = useMovieStore((state) => state);
 
-  return <StyledText>Movie: {movieId}</StyledText>;
+  return <StyledText>Movie: {movie?.title}</StyledText>;
 };
 
 export default Movie;
