@@ -12,6 +12,7 @@ const Login = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isLoaded, signUp } = useSignUp();
 
@@ -27,6 +28,7 @@ const Login = () => {
     }
 
     try {
+      setIsLoading(true);
       await signUp.create({
         emailAddress: email,
       });
@@ -40,6 +42,8 @@ const Login = () => {
     } catch (err) {
       Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,7 +71,11 @@ const Login = () => {
           onChangeText={setEmail}
           placeholder={t("email")}
         />
-        <Button label={t("continue")} onPress={onPressContinue} />
+        <Button
+          isLoading={isLoading}
+          label={t("continue")}
+          onPress={onPressContinue}
+        />
         <Button
           type="link"
           label={t("already-have-an-account")}

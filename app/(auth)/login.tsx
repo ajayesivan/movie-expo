@@ -12,6 +12,7 @@ const Login = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { isLoaded, signIn } = useSignIn();
 
   const onPressContinue = async () => {
@@ -26,6 +27,7 @@ const Login = () => {
     }
 
     try {
+      setIsLoading(true);
       const { supportedFirstFactors } = await signIn.create({
         identifier: email,
       });
@@ -48,6 +50,8 @@ const Login = () => {
     } catch (err: any) {
       Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err, null, 2));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,7 +74,11 @@ const Login = () => {
           onChangeText={setEmail}
           placeholder={t("email")}
         />
-        <Button label={t("continue")} onPress={onPressContinue} />
+        <Button
+          isLoading={isLoading}
+          label={t("continue")}
+          onPress={onPressContinue}
+        />
         <Button
           type="link"
           label={t("create-an-account")}
