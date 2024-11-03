@@ -20,8 +20,6 @@ const Home = () => {
     signOut();
   };
 
-  console.log("favoriteMovies:", favoriteMovies);
-
   const onPressFavorites = () => {
     router.push("/(home)/favorites");
   };
@@ -50,7 +48,7 @@ const Home = () => {
         rating={item.rating}
         onFavoritePress={() => onToggleFavorite(item.id)}
         overview={item.overview}
-        isFavorite={favoriteMovies.has(item.id)}
+        isFavorite={favoriteMovies.includes(item.id)}
         onPress={() => onPressMovie(item)}
       />
     ),
@@ -78,6 +76,7 @@ const Home = () => {
         ItemSeparatorComponent={ItemSeparator}
         onEndReached={loadMore}
         renderItem={renderItem}
+        extraData={favoriteMovies}
       />
     </StyledView>
   );

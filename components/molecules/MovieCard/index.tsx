@@ -66,7 +66,7 @@ const MovieCard = ({
           onPress={onFavoritePress}
           isNaked={true}
           icon="ri-heart-3-fill"
-          iconColor={isFavorite ? "textPrimary" : "border"}
+          iconColor={isFavorite ? "favorite" : "border"}
         />
       </StyledView>
     </StyledTouchableOpacity>
