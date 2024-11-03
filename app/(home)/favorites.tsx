@@ -37,7 +37,7 @@ const Favorites = () => {
         rating={item.rating}
         onFavoritePress={() => onToggleFavorite(item)}
         overview={item.overview}
-        // isFavorite={favoriteMoviesId.includes(item.id)}
+        shouldShowUnfavoriteIcon
         onPress={() => onPressMovie(item)}
       />
     ),
