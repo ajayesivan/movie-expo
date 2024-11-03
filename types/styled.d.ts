@@ -12,6 +12,7 @@ declare module "styled-components/native" {
       bgHighlight: string;
       border: string;
       favorite: string;
+      backdropOverlay: string;
     };
     fontSizes: {
       xs: string;

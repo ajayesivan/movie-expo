@@ -6,5 +6,6 @@ export interface Movie {
   releaseYear: string;
   posterUrl: string;
   posterThumbnailUrl: string;
+  backdropUrl: string;
   overview: string;
 }

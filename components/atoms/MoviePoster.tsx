@@ -1,9 +1,11 @@
 import { StyledImage } from "@/components/styled";
-import { ImageSourcePropType } from "react-native";
+import { ImageStyle } from "expo-image";
+import { ImageSourcePropType, StyleProp } from "react-native";
 
 interface MoviePosterProps {
   size: "thumbnail" | "large" | "medium" | "small";
   source: ImageSourcePropType;
+  style?: StyleProp<ImageStyle>;
 }
 
 interface Dimensions {
@@ -30,11 +32,16 @@ const dimensions: Record<MoviePosterProps["size"], Dimensions> = {
   },
 };
 
-const MoviePoster = ({ size = "thumbnail", source }: MoviePosterProps) => {
+const MoviePoster = ({
+  size = "thumbnail",
+  source,
+  style,
+}: MoviePosterProps) => {
   const isThumbnail = size === "thumbnail";
 
   return (
     <StyledImage
+      style={style}
       borderRadius={isThumbnail ? "s" : "xl"}
       source={source}
       {...dimensions[size]}

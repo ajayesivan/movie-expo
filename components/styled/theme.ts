@@ -10,6 +10,7 @@ const theme: DefaultTheme = {
     bgHighlight: "#FFFFFF1A", // White 10%
     border: "#FFFFFF66", // White 40%
     favorite: "#FF3232",
+    backdropOverlay: "#000000bb",
   },
   fontSizes: {
     xs: "12px",
