@@ -9,6 +9,7 @@ import t from "@/localization";
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
+import Toast from "react-native-root-toast";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Otp = () => {
@@ -27,8 +28,8 @@ const Otp = () => {
 
   const onPressSignUp = async () => {
     if (!isLoaded) {
-      console.log("Not loaded");
-      return; // TODO: Update the user about the issue
+      Toast.show(t("something-went-wrong"));
+      return;
     }
 
     try {
@@ -43,14 +44,15 @@ const Otp = () => {
         console.error(JSON.stringify(completeSignUp, null, 2));
       }
     } catch (err) {
+      Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
     }
   };
 
   const onPressLogin = async () => {
     if (!isSignInLoaded) {
-      console.log("Not loaded");
-      return; // TODO: Update the user about the issue
+      Toast.show(t("something-went-wrong"));
+      return;
     }
 
     try {
@@ -66,6 +68,7 @@ const Otp = () => {
         console.error(JSON.stringify(completeSignIn, null, 2));
       }
     } catch (err) {
+      Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
     }
   };

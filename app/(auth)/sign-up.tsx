@@ -4,6 +4,7 @@ import t from "@/localization";
 import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import Toast from "react-native-root-toast";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = () => {
@@ -15,9 +16,14 @@ const Login = () => {
   const { isLoaded, signUp } = useSignUp();
 
   const onPressContinue = async () => {
+    if (!name || !email) {
+      Toast.show(t("enter-name-email"));
+      return;
+    }
+
     if (!isLoaded) {
-      console.log("Not loaded");
-      return; // TODO: Update the user about the issue
+      Toast.show(t("something-went-wrong"));
+      return;
     }
 
     try {
@@ -32,6 +38,7 @@ const Login = () => {
         params: { name: name },
       });
     } catch (err) {
+      Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
     }
   };

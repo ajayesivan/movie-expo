@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { tokenCache } from "@/auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,7 +42,9 @@ const RootLayout = () => {
       <ClerkLoaded>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
-            <Slot />
+            <RootSiblingParent>
+              <Slot />
+            </RootSiblingParent>
           </ThemeProvider>
         </QueryClientProvider>
       </ClerkLoaded>
