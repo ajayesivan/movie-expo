@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Otp = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { name } = useLocalSearchParams<{ name: string }>();
   const isLogin = !name;
@@ -27,12 +28,18 @@ const Otp = () => {
   const [otp, setOtp] = useState("");
 
   const onPressSignUp = async () => {
+    if (!otp) {
+      Toast.show(t("enter-otp"));
+      return;
+    }
+
     if (!isLoaded) {
       Toast.show(t("something-went-wrong"));
       return;
     }
 
     try {
+      setIsLoading(true);
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: otp,
       });
@@ -46,16 +53,24 @@ const Otp = () => {
     } catch (err) {
       Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onPressLogin = async () => {
+    if (!otp) {
+      Toast.show(t("enter-otp"));
+      return;
+    }
+
     if (!isSignInLoaded) {
       Toast.show(t("something-went-wrong"));
       return;
     }
 
     try {
+      setIsLoading(true);
       const completeSignIn = await signIn.attemptFirstFactor({
         strategy: "email_code",
         code: otp,
@@ -70,6 +85,8 @@ const Otp = () => {
     } catch (err) {
       Toast.show(t("something-went-wrong"));
       console.log("Error", JSON.stringify(err));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,6 +109,7 @@ const Otp = () => {
         </StyledView>
         <TextInput value={otp} onChangeText={setOtp} placeholder={t("otp")} />
         <Button
+          isLoading={isLoading}
           label={t(isLogin ? "login" : "sign-up")}
           onPress={isLogin ? onPressLogin : onPressSignUp}
         />
