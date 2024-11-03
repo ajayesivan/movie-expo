@@ -1,6 +1,6 @@
 export interface Movie {
   id: number;
-  rating: number;
+  rating: string;
   ratingCount: number;
   title: string;
   releaseYear: string;
