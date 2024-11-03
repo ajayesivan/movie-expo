@@ -1,5 +1,6 @@
 import { IconButton } from "@/components/atoms";
 import { StyledText, StyledView } from "@/components/styled";
+import t from "@/localization";
 import { router } from "expo-router";
 import { Stack } from "expo-router";
 
@@ -8,7 +9,7 @@ const Favorites = () => {
     <StyledView>
       <Stack.Screen
         options={{
-          title: "Favorites",
+          title: t("favorites"),
           headerRight: () => (
             <IconButton
               iconColor="primary"
