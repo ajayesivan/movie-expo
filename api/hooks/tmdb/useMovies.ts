@@ -2,7 +2,8 @@ import { axiosTmdb } from "@/api/axios";
 import { generateTmdbImageUrl, TMDB_POPULAR_MOVIES } from "@/api/urls/tmdb";
 import { Movie } from "@/types/movie";
 import { TmdbMovie, TmdbPopularMovieResponse } from "@/types/tmdb";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useMemo, useCallback } from "react";
 
 const transformTmdbMovieData = (movies: TmdbMovie[]): Movie[] => {
   return movies.map((movieObject) => ({
@@ -17,28 +18,45 @@ const transformTmdbMovieData = (movies: TmdbMovie[]): Movie[] => {
   }));
 };
 
+interface UseMovies {
+  movies: Movie[];
+  loadMore: () => void;
+}
 
 // TODO: https://github.com/ajayesivan/movie-expo/issues/36
-const useMovies = () => {
-  const { data } = useQuery<TmdbPopularMovieResponse>({
-    queryKey: ["tmdb", "moives", "1"],
-    queryFn: async () => {
-      const res = await axiosTmdb.get(TMDB_POPULAR_MOVIES, {
-        params: { language: "en-US", page: "1" },
-      });
-      return res.data;
-    },
-  });
+const useMovies = (): UseMovies => {
+  const { data, hasNextPage, fetchNextPage } =
+    useInfiniteQuery<TmdbPopularMovieResponse>({
+      initialPageParam: 1,
+      queryKey: ["tmdb", "moives"],
+      queryFn: async ({ pageParam }) => {
+        const res = await axiosTmdb.get(TMDB_POPULAR_MOVIES, {
+          params: { language: "en-US", page: pageParam },
+        });
+        return res.data;
+      },
+      getNextPageParam: (lastResponse) => {
+        if (lastResponse.page < lastResponse.total_pages) {
+          return lastResponse.page + 1;
+        }
+        return undefined;
+      },
+    });
 
-  if (!data) {
-    return { movies: [], page: 0, totalPages: 0 };
-  }
+  const movies = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return data.pages.flatMap((page) => transformTmdbMovieData(page.results));
+  }, [data]);
 
-  const { page, results, total_pages: totalPages } = data;
+  const loadMore = useCallback(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage]);
 
-  const movies = transformTmdbMovieData(results);
-
-  return { movies, page, totalPages };
+  return { movies, loadMore };
 };
 
 export default useMovies;
