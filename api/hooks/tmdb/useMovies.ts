@@ -23,6 +23,7 @@ const transformTmdbMovieData = (
     posterThumbnailUrl: generateTmdbImageUrl(movieObject.poster_path, 200),
     posterUrl: generateTmdbImageUrl(movieObject.poster_path, 500),
     overview: movieObject.overview,
+    backdropUrl: generateTmdbImageUrl(movieObject.backdrop_path, 500),
   }));
 };
 

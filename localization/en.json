@@ -10,5 +10,7 @@
   "name": "Name",
   "imdb": "IMDb",
   "movie-expo": "Movie Expo",
-  "favorites": "Favorites"
+  "favorites": "Favorites",
+  "favorite": "Favorite",
+  "unfavorite": "Unfavorite"
 }
