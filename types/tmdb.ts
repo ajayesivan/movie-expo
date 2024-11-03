@@ -1,11 +1,11 @@
-export interface TmdbPopularMovieResponse {
+export interface TmdbMoviesListPopularResponse {
   page: number;
-  results: TmdbMovie[];
+  results: TmdbMoiveListsPopularMovie[];
   total_pages: number;
   total_results: number;
 }
 
-export interface TmdbMovie {
+export interface TmdbMoiveListsPopularMovie {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];

@@ -1,19 +1,27 @@
 import { axiosTmdb } from "@/api/axios";
-import { generateTmdbImageUrl, TMDB_POPULAR_MOVIES } from "@/api/urls/tmdb";
+import {
+  generateTmdbImageUrl,
+  TMDB_MOVIE_LISTS_POPULAR,
+} from "@/api/urls/tmdb";
 import { Movie } from "@/types/movie";
-import { TmdbMovie, TmdbPopularMovieResponse } from "@/types/tmdb";
+import {
+  TmdbMoiveListsPopularMovie,
+  TmdbMoviesListPopularResponse,
+} from "@/types/tmdb";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useCallback } from "react";
 
-const transformTmdbMovieData = (movies: TmdbMovie[]): Movie[] => {
+const transformTmdbMovieData = (
+  movies: TmdbMoiveListsPopularMovie[]
+): Movie[] => {
   return movies.map((movieObject) => ({
     id: movieObject.id,
     title: movieObject.title,
-    rating: movieObject.vote_average,
+    rating: movieObject.vote_average.toFixed(1),
     ratingCount: movieObject.vote_count,
     releaseYear: movieObject.release_date.substring(0, 4),
     posterThumbnailUrl: generateTmdbImageUrl(movieObject.poster_path, 200),
-    posterUrl: generateTmdbImageUrl(movieObject.poster_path, 1080),
+    posterUrl: generateTmdbImageUrl(movieObject.poster_path, 500),
     overview: movieObject.overview,
   }));
 };
@@ -26,12 +34,12 @@ interface UseMovies {
 // TODO: https://github.com/ajayesivan/movie-expo/issues/36
 const useMovies = (): UseMovies => {
   const { data, hasNextPage, fetchNextPage } =
-    useInfiniteQuery<TmdbPopularMovieResponse>({
+    useInfiniteQuery<TmdbMoviesListPopularResponse>({
       initialPageParam: 1,
-      queryKey: ["tmdb", "moives"],
+      queryKey: ["tmdb", "movieLists", "popular"],
       queryFn: async ({ pageParam }) => {
-        const res = await axiosTmdb.get(TMDB_POPULAR_MOVIES, {
-          params: { language: "en-US", page: pageParam },
+        const res = await axiosTmdb.get(TMDB_MOVIE_LISTS_POPULAR, {
+          params: { page: pageParam },
         });
         return res.data;
       },

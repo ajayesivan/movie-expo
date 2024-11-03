@@ -16,8 +16,12 @@ const Home = () => {
     signOut();
   };
 
-  const openFavorites = () => {
-    router.push("/favorites");
+  const onPressFavorites = () => {
+    router.push("/(home)/favorites");
+  };
+
+  const onPressMovie = (movieId: string | number) => {
+    router.push({ pathname: "/(home)/movie", params: { movieId: movieId } });
   };
 
   return (
@@ -29,7 +33,7 @@ const Home = () => {
             <IconButton
               iconColor="primary"
               icon="ri-heart-fill"
-              onPress={openFavorites}
+              onPress={onPressFavorites}
             />
           ),
         }}
@@ -57,7 +61,7 @@ const Home = () => {
             rating={item.rating}
             onFavoritePress={() => {}}
             overview={item.overview}
-            onPress={() => {}}
+            onPress={() => onPressMovie(item.id)}
           />
         )}
       />

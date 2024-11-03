@@ -13,6 +13,7 @@ const axiosTmdb = axios.create({
   headers: {
     Authorization: `Bearer ${API_KEY}`,
   },
+  params: { language: "en-US" },
 });
 
 export default axiosTmdb;

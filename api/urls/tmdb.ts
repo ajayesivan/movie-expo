@@ -9,4 +9,4 @@ export const generateTmdbImageUrl = (
   return `${TMDB_IMAGE_URL_BASE}/w${width}${imagePathWithSlash}`;
 };
 
-export const TMDB_POPULAR_MOVIES = "/movie/popular";
+export const TMDB_MOVIE_LISTS_POPULAR = "/movie/popular";
