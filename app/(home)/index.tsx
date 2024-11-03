@@ -5,6 +5,7 @@ import { StyledView } from "@/components/styled";
 import { useClerk } from "@clerk/clerk-expo";
 import { router, Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
+import t from "@/localization";
 
 const Home = () => {
   const { signOut } = useClerk();
@@ -23,7 +24,7 @@ const Home = () => {
     <StyledView p="20px" flex={1}>
       <Stack.Screen
         options={{
-          title: "Hey, Ajay!",
+          title: t("movie-expo"),
           headerRight: () => (
             <IconButton
               iconColor="primary"
