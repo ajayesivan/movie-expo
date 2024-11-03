@@ -1,15 +1,18 @@
-import { IconButton, ItemSeparator } from "@/components/atoms";
+import { Button, IconButton, ItemSeparator } from "@/components/atoms";
 import { MovieCard } from "@/components/molecules";
-import { StyledText, StyledView } from "@/components/styled";
+import { StyledView } from "@/components/styled";
 import t from "@/localization";
 import useMovieStore from "@/store";
 import { Movie } from "@/types/movie";
+import { useClerk } from "@clerk/clerk-expo";
 import { FlashList } from "@shopify/flash-list";
 import { router } from "expo-router";
 import { Stack } from "expo-router";
 import { useCallback } from "react";
 
 const Favorites = () => {
+  const { signOut } = useClerk();
+
   const { favoriteMovies, toggleFavoriteMovie, updateSelectedMovie } =
     useMovieStore((state) => state);
 
@@ -45,7 +48,7 @@ const Favorites = () => {
   );
 
   return (
-    <StyledView flex={1} p="20px">
+    <StyledView flex={1} pb="20px">
       <Stack.Screen
         options={{
           title: t("favorites"),
@@ -56,14 +59,18 @@ const Favorites = () => {
               onPress={router.back}
             />
           ),
+          headerBackVisible: false,
         }}
       />
       <FlashList
         data={favoriteMovies}
+        contentContainerStyle={{ padding: 20 }}
         estimatedItemSize={114}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={renderItem}
       />
+
+      <Button label={t("logout")} type="link" onPress={signOut} />
     </StyledView>
   );
 };
