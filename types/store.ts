@@ -1,8 +1,8 @@
 import { Movie } from "./movie";
 
 export interface MovieStore {
-  favoriteMovies: number[];
+  favoriteMovies: Movie[];
   selectedMovie?: Movie;
-  toggleFavoriteMovie: (movieId: number) => void;
+  toggleFavoriteMovie: (movie: Movie) => void;
   updateSelectedMovie: (movie: Movie) => void;
 }

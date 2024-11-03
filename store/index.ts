@@ -3,15 +3,17 @@ import { MovieStore } from "@/types/store";
 import { create } from "zustand";
 
 const useMovieStore = create<MovieStore>((set) => ({
-  favoriteMovies: [] as number[],
+  favoriteMovies: [] as Movie[],
   selectedMovie: undefined,
   updateSelectedMovie: (movie: Movie) => set(() => ({ selectedMovie: movie })),
-  toggleFavoriteMovie: (movieId: number) =>
+  toggleFavoriteMovie: (movie: Movie) =>
     set((state) => {
-      const isFavorite = state.favoriteMovies.includes(movieId);
+      const isFavorite = state.favoriteMovies.some(
+        (favMovie) => favMovie.id === movie.id
+      );
       const newFavoriteMovies = isFavorite
-        ? state.favoriteMovies.filter((id) => id !== movieId)
-        : [...state.favoriteMovies, movieId];
+        ? state.favoriteMovies.filter((favMovie) => favMovie.id !== movie.id)
+        : [...state.favoriteMovies, movie];
       return { favoriteMovies: newFavoriteMovies };
     }),
 }));

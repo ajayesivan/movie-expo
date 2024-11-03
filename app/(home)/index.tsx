@@ -6,7 +6,7 @@ import { useClerk } from "@clerk/clerk-expo";
 import { router, Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import t from "@/localization";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Movie } from "@/types/movie";
 import useMovieStore from "@/store";
 
@@ -15,6 +15,11 @@ const Home = () => {
   const { movies, loadMore } = useMovies();
   const { favoriteMovies, toggleFavoriteMovie, updateSelectedMovie } =
     useMovieStore((state) => state);
+
+  const favoriteMoviesId = useMemo(
+    () => favoriteMovies.map((favMovie) => favMovie.id),
+    [favoriteMovies]
+  );
 
   const logout = () => {
     signOut();
@@ -33,8 +38,8 @@ const Home = () => {
   );
 
   const onToggleFavorite = useCallback(
-    (movieId: number) => {
-      toggleFavoriteMovie(movieId);
+    (movie: Movie) => {
+      toggleFavoriteMovie(movie);
     },
     [toggleFavoriteMovie]
   );
@@ -46,13 +51,13 @@ const Home = () => {
         title={item.title}
         year={item.releaseYear}
         rating={item.rating}
-        onFavoritePress={() => onToggleFavorite(item.id)}
+        onFavoritePress={() => onToggleFavorite(item)}
         overview={item.overview}
-        isFavorite={favoriteMovies.includes(item.id)}
+        isFavorite={favoriteMoviesId.includes(item.id)}
         onPress={() => onPressMovie(item)}
       />
     ),
-    [onPressMovie, onToggleFavorite, favoriteMovies]
+    [onPressMovie, onToggleFavorite, favoriteMoviesId]
   );
 
   return (
@@ -76,7 +81,7 @@ const Home = () => {
         ItemSeparatorComponent={ItemSeparator}
         onEndReached={loadMore}
         renderItem={renderItem}
-        extraData={favoriteMovies}
+        extraData={favoriteMoviesId}
       />
     </StyledView>
   );
